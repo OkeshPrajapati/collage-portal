@@ -1,0 +1,124 @@
+(6).routing waali file web.js ke naam se banegi
+
+(7). web.js ko link kaise karege app .js se
+require karege app.js me app.use('/',web)
+
+
+(8). controller kaise bante h or usske under static method kaise banate h or usse ko web.js pe require kaise karege
+class FrontController{
+static home = async(req,res)=>{
+try {
+res.send("home page")
+
+} catch (error) {
+console.log(error)
+}
+}
+}
+(routs.js baali  file me) 
+routes.get('/',FrontController.home)
+module.exports=FrontController
+
+(9). views ke ander html_file kaise banayge uske liye hme template engine milta h express ke ander
+=> teminal pe (npm i ejs) install karna hota h
+
+app.js me =>app.set ('view engine', 'ejs')
+
+view baale folder me (home.ejs) name se file banate h
+
+
+public baale folder me css oe image naame folder banate h 
+
+(10). theam kaise set karte h
+=> sabse pahle image or css wala folder ko copy karege or public wale folder me copy karege login.html wala code ko hm
+copy karke view ke ander login.ejs me dal dege
+
+
+(11). css or image 
+=> app.use (express.static('public'))
+
+
+(12). header footer alag kaise karte h
+views me => 2 file banayge header.ejs or footer.ejs
+
+
+(13). database connectivity kaise karte h
+
+=> termilan pe npm i mongoose karte h install
+
+database baale folder me connectDb.js ki file me 
+
+connectDb.js me 
+=> const mongoose = require('mongoose')
+ const local_url = 'mongodb://127.0.0.1:27017/college portal'
+
+
+const connectDb = () => {
+return mongoose.connect(local_url)
+.then(() => {
+console.log('connect')
+
+}).catch((error) => {
+console.log('error')
+})
+}
+module.exports = connectDb
+
+isske baad app.js pe jaake connectdb ko require karte h
+
+(14).models ke ander collectione kaise banayge
+=> model ke ander ek user.js naam ka collection (file) banayge phir uske ander mongoose ko require karege
+
+or user.js me hi userschema banate h 
+=> const userSchema = mongoose.Schema({
+    name: {
+        type: String,
+        require
+    },
+    email: {
+        type: String,
+        require
+    },
+    password: {
+
+        type: String,
+        require
+    }
+})
+const userModel = mongoose.model('user', userSchema)
+module.exports = userModel
+
+(15). sabse pahle name ke ander ek variable difine karege h 
+=> <input class="form-control text-capitalize" type="text" placeholder="Enter your name"
+required name="name">
+ye kaam sabhi input ke ander karna hota h
+
+(16). form ke ander me action dete h or method post difine karte h
+form submit karne se url me data show nhi hota post ko use karne se 
+post ki maddat se kitna bhi data le ja sakte h (example -- imgae bhi le ja sakte h)
+=>. jab form ke thro data leke aayge to routes me hamesa post dena hoga. 
+
+<!-- static userinsert = async(req,res)=>{
+    try {
+        console.log("insert")
+        
+    } catch (error) {
+        console.log(error)
+        
+        
+    }
+} -->
+(17). form se data get karne ke liye app.js me -- app.use (express.urlencoded({extended: false})) -- likhna hota h
+data check karne ke ke frontcontroller me req.body likhte h
+
+static userinsert = async(req,res)=>{
+    try {
+        console.log(req.body)
+        
+    } catch (error) {
+        console.log(error)
+        
+        
+    }
+}  
+
